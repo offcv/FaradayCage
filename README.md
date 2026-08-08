@@ -26,8 +26,9 @@ macOS 默认不支持窗口置顶。FaradayCage 采用了创新的底层投屏�
 在 GitHub 的 **Releases** 页面下载最新版本的 `FaradayCage_Install.dmg`。
 
 1. 双击打开下载的 `.dmg` 文件。
-2. 将左侧的 `FaradayCage.app` 拖拽到右侧的 `Applications` 文件夹中完成安装。
-3. **⚠️ 极其重要（破除“文件已损坏”限制）**：由于本开源软件未经苹果官方付费签名，请打开系统自带的 **终端 (Terminal)**，点击下方代码块右上角的图标**一键复制**，粘贴到终端并按下回车：
+2. 将 DMG 窗口里的 `FaradayCage.app` 拖拽到旁边的 `Applications` 文件夹图标中完成安装。
+3. **⚠️ 极其重要（破除“文件已损坏”限制）**：由于本开源软件未经苹果官方付费签名，请按下键盘上的 【Command ⌘ + 空格键】 呼出搜索，打开系统自带的 **终端 (Terminal)**。
+   点击下方代码块右上角的图标**一键复制**，粘贴到终端并按下回车：
 
 ```bash
 xattr -cr /Applications/FaradayCage.app
