@@ -24,9 +24,10 @@ echo "📁 准备 DMG 装配目录..."
 rm -rf "$STAGING_DIR"
 mkdir -p "$STAGING_DIR"
 
-echo "📦 复制应用文件和安装脚本..."
+echo "📦 复制应用文件并创建快捷方式..."
 cp -R "$BUILD_DIR/$APP_NAME.app" "$STAGING_DIR/"
-cp "$SCRIPT_DIR/install.command" "$STAGING_DIR/双击一键安装.command"
+# 创建 Applications 文件夹软链接，实现拖拽安装体验
+ln -s /Applications "$STAGING_DIR/Applications"
 
 # 清理现有的 DMG（如果存在）
 if [ -f "$BUILD_DIR/$DMG_NAME.dmg" ]; then
