@@ -29,38 +29,20 @@ cp -R "$BUILD_DIR/$APP_NAME.app" "$STAGING_DIR/"
 # 创建 Applications 文件夹软链接，实现拖拽安装体验
 ln -s /Applications "$STAGING_DIR/Applications"
 
-echo "📄 正在生成安装说明文档..."
-cat << 'EOF' > "$STAGING_DIR/必看_解决“应用已损坏”问题.txt"
-==================================================
-  FaradayCage (法拉第笼) 安装与破壁指南
-==================================================
-
-📦 第 1 步：安装应用
---------------------------------------------------
-  请将本窗口里的【FaradayCage.app】图标
-  拖拽进旁边的【Applications】蓝色文件夹图标里。
-
-🔐 第 2 步：破除“应用已损坏”警告（极其重要！）
---------------------------------------------------
-  因为本开源软件未经苹果官方付费签名，直接打开会提示“已损坏”。
-  拖拽完成后，请务必按以下步骤操作：
-
-  ① 按下键盘上的 【Command ⌘ + 空格键】（或点击屏幕右上角放大镜），
-     呼出聚焦搜索，输入“终端”或“Terminal”并按下回车打开它。
-     
-  ② 复制下面这行命令（包含所有的英文字母和空格）：
-
-     xattr -cr /Applications/FaradayCage.app
-
-  ③ 粘贴到黑色的终端窗口中，然后按下回车键（Enter）。
-
-🚀 第 3 步：开始使用
---------------------------------------------------
-  大功告成！没有任何弹窗。
-  现在您可以去启动台里愉快地打开法拉第笼了。
-
-==================================================
+echo "📄 正在生成一键修复工具..."
+# 使用 osacompile 将 AppleScript 编译成一个双击可运行的 App
+# 这个 App 会通过管理员权限执行 xattr 清理命令
+cat << 'EOF' > "$STAGING_DIR/fix_script.applescript"
+try
+    do shell script "xattr -cr /Applications/FaradayCage.app" with administrator privileges
+    display dialog "修复完成！✅\n\n请前往「启动台」或「应用程序」文件夹中打开 FaradayCage。" buttons {"我知道了"} default button "我知道了" with title "修复成功" with icon note
+on error errMsg
+    display dialog "修复失败：\n" & errMsg buttons {"关闭"} default button "关闭" with title "发生错误" with icon stop
+end try
 EOF
+
+osacompile -o "$STAGING_DIR/🔧双击修复打不开问题.app" "$STAGING_DIR/fix_script.applescript"
+rm "$STAGING_DIR/fix_script.applescript"
 
 # 清理现有的 DMG（如果存在）
 if [ -f "$BUILD_DIR/$DMG_NAME.dmg" ]; then
