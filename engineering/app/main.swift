@@ -1190,10 +1190,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         全局快捷键: 
         ⌘⇧M - 最小化所有窗口
         ⌘⌥M - 最小化其他窗口（保留当前）
+        
+        开源主页: https://github.com/offcv/FaradayCage
         """
         alert.alertStyle = .informational
         alert.addButton(withTitle: "确定")
-        alert.runModal()
+        alert.addButton(withTitle: "访问 GitHub")
+        
+        let response = alert.runModal()
+        if response == .alertSecondButtonReturn {
+            if let url = URL(string: "https://github.com/offcv/FaradayCage") {
+                NSWorkspace.shared.open(url)
+            }
+        }
     }
 
     // MARK: - 退出
