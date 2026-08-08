@@ -54,4 +54,4 @@ bash engineering/scripts/build.sh
 
 ## 📜 开源协议
 
-本项目基于 [MIT License](LICENSE) 开源。欢迎任何人分发、修改、提交 PR。
+本项目基于 [GNU General Public License v3.0 (GPLv3)](LICENSE) 开源。欢迎任何人分发、修改、提交 PR，但在分发衍生作品时必须同样开源。
