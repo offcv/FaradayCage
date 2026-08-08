@@ -29,6 +29,32 @@ cp -R "$BUILD_DIR/$APP_NAME.app" "$STAGING_DIR/"
 # 创建 Applications 文件夹软链接，实现拖拽安装体验
 ln -s /Applications "$STAGING_DIR/Applications"
 
+echo "📄 正在生成安装说明文档..."
+cat << 'EOF' > "$STAGING_DIR/必看_破除损坏提示.txt"
+==================================================
+  FaradayCage (法拉第笼) 安装与破壁指南
+==================================================
+
+1. 安装应用：
+   请将左侧的 FaradayCage.app 拖拽到右侧的 Applications 文件夹中。
+
+2. 破除“应用已损坏”警告（极其重要！）：
+   因为本开源软件未经苹果官方付费签名，直接打开会提示“已损坏”。
+   请务必按以下步骤操作：
+
+   ① 在电脑的右上角放大镜（聚焦搜索）中搜索并打开“终端” (Terminal)。
+   ② 复制下面这行命令（包含所有的英文字母和空格）：
+
+   xattr -cr /Applications/FaradayCage.app
+
+   ③ 粘贴到终端黑框框中，然后按下回车键（Enter）。
+
+3. 开始使用：
+   搞定！现在您可以去 应用程序(Applications) 或 启动台(Launchpad) 中愉快地打开法拉第笼了。
+
+==================================================
+EOF
+
 # 清理现有的 DMG（如果存在）
 if [ -f "$BUILD_DIR/$DMG_NAME.dmg" ]; then
     rm -f "$BUILD_DIR/$DMG_NAME.dmg"
